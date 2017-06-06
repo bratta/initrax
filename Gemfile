@@ -20,6 +20,7 @@ gem 'devise-two-factor'
 gem 'rqrcode'
 gem 'decent_exposure'
 gem 'active_model_serializers', '~> 0.10.0'
+gem 'browserify-rails'
 
 group :development, :test do
   gem 'foreman'

@@ -37,3 +37,5 @@ config/deploy/*
 
 # OS X filesystem files
 .DS_Store
+
+postgres
