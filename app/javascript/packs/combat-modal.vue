@@ -118,23 +118,26 @@ export default {
     },
 
     rollInitiative: function(combatant) {
-      var roll = this.initiativeRolls[combatant.character.id];
+      var roll = _.toNumber(this.initiativeRolls[combatant.character.id]);
       if (combatant.character.roll_automatically) {
         roll = Math.floor(Math.random() * 19) + 1;
       }
-      return roll + combatant.character.initative_bonus;
+      var calculated_roll = roll + combatant.character.initiative_bonus;
+      combatant.calculated_roll = calculated_roll;
+      return calculated_roll;
     },
 
-    setInitiativeOrder: function(combatants, maxDisplayOrder=0) {
+    setInitiativeOrder: function(combatants) {
       const vm = this;
-      // Add the new combatants to the END of combat
-      // in order based on their rolls
+      // Roll for initiative
       _.each(combatants, function(combatant) {
-        combatant.display_order = maxDisplayOrder + vm.rollInitiative(combatant);
+        if (!combatant.calculated_roll) {
+          vm.rollInitiative(combatant);
+        }
       });
       // Now reset the display orders so that they are
       // consecutive.
-      _.each(vm.combatants, function(combatant, index) {
+      _.each(_.orderBy(combatants, ["calculated_roll"], ["desc"]), function(combatant, index) {
         combatant.display_order = index;
       });
     },
@@ -144,11 +147,10 @@ export default {
       axios.get('/api/combats/'+vm.selectedCombat+'.json')
         .then(function(response) {
           var combat = Combat.from_json(response.data);
-          var maxDisplayOrder = _.max(_.map(combat.combatants, "display_order"));
           _.each(vm.combatants, function(combatant) {
             combat.combatants.push(combatant);
           });
-          vm.setInitiativeOrder(combat.combatants, maxDisplayOrder);
+          vm.setInitiativeOrder(combat.combatants);
           axios.put('/api/combats/'+vm.selectedCombat, combat.to_json())
             .then(function(response) {
               vm.eventHub.$emit('combat-saved');

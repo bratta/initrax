@@ -11,7 +11,7 @@
                   v-bind:key="combatant.id">
                 <div class="panel-body form-inline">
                   <button type="button" class="close" @click="deleteCombatant(combatant)">×</button>
-                    <strong>{{combatant.character.name}}</strong><br>
+                    <strong>{{combatant.character.name}}</strong> (Initiative: {{combatant.calculated_roll}})<br>
                     <strong>HP:</strong> {{combatant.hit_points}}/{{combatant.character.hit_points}}
 									  <strong>Level/CR:</strong> {{combatant.character.level}}
 										<span v-if="combatant.character.is_player" class="badge">PC</span>

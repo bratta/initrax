@@ -1,5 +1,5 @@
 class Combatant {
-  constructor(id, user_id, hit_points=0, notes='', display_order=0, active=true, character=new Character()) {
+  constructor(id, user_id, hit_points=0, notes='', display_order=0, active=true, character=new Character(), calculated_roll=0) {
     this._id = id;
     this._user_id = user_id;
     this._hit_points = hit_points;
@@ -7,6 +7,7 @@ class Combatant {
     this._display_order = display_order;
     this._active = active;
     this._character = character;
+    this._calculated_roll = calculated_roll;
   }
 
   get id() {
@@ -65,6 +66,14 @@ class Combatant {
     this._character = character;
   }
 
+  get calculated_roll() {
+    return this._calculated_roll;
+  }
+
+  set calculated_roll(calculated_roll) {
+    this._calculated_roll = calculated_roll;
+  }
+
   to_json() {
     var json = {
       combatant: {
@@ -73,7 +82,8 @@ class Combatant {
         hit_points: this.hit_points,
         notes: this.notes,
         display_order: this.display_order,
-        active: this.active
+        active: this.active,
+        calculated_roll: this.calculated_roll
       }
     };
     if (!this.id) {
@@ -84,6 +94,6 @@ class Combatant {
 
   static from_json(json) {
     var character = (json.character != null) ? Character.from_json(json.character) : new Character();
-    return new Combatant(json.id, json.user_id, json.hit_points, json.notes, json.display_order, json.active, character);
+    return new Combatant(json.id, json.user_id, json.hit_points, json.notes, json.display_order, json.active, character, json.calculated_roll);
   }
 }

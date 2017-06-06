@@ -34,3 +34,6 @@ config/deploy/*
 .vscode/
 /public/packs
 /node_modules
+
+# OS X filesystem files
+.DS_Store

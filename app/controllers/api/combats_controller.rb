@@ -38,6 +38,6 @@ class Api::CombatsController < ApplicationController
   private
 
   def combat_params
-    params.require(:combat).permit(:id, :user_id, :name, :active, combatants_attributes: [:id, :user_id, :hit_points, :notes, :display_order, :active, :character_id])
+    params.require(:combat).permit(:id, :user_id, :name, :active, combatants_attributes: [:id, :user_id, :hit_points, :notes, :display_order, :active, :character_id, :calculated_roll])
   end
 end
