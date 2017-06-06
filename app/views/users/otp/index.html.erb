@@ -1,0 +1,62 @@
+<a href="/users/edit" class="btn btn-success">Back to Settings</a>
+<h3>Two-Factor Authentication</h3>
+<p>Enabling this will require that you login with your e-mail address,
+your password, and a one-time password provided from a device such as the <a href="https://support.google.com/accounts/answer/1066447?hl=en">Google Authenticator</a>.</p>
+<%= form_for @user, url: users_otp_update_path, method: :put do |f| %>
+  <div class="form-group">
+    <%= f.label :otp_required_for_login, "Enable Two-Factor Authentication" %>
+    <div class="radio">
+      <label>
+        <%= f.radio_button :otp_required_for_login, true, "data-toggle" => "collapse", "data-target" => "#save-btn-collapse#{@user.otp_required_for_login ? ".in" : ":not(.in)"}" %>
+        Enabled
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <%= f.radio_button :otp_required_for_login, false, "data-toggle" => "collapse", "data-target" => "#save-btn-collapse#{@user.otp_required_for_login ? ":not(.in)" : ".in"}" %>
+        Disabled
+      </label>
+    </div>
+  </div>
+
+  <div class="save-btn">
+    <div id="save-btn-collapse" class="form-group collapse">
+      <%= f.submit "Save Changes", class: "btn btn-primary" %>
+    </div>
+  </div>
+
+  <% if @user.otp_required_for_login && @show_qr %>
+    <div class="form-group">
+      <%= image_tag '/users/otp/qrcode.png' %>
+      <p></p>
+      <p>Scan this code in <a href="https://support.google.com/accounts/answer/1066447?hl=en">Google Authenticator</a>
+      before leaving this screen. This QR Code will not be shown again and you will NOT be able to login without using the authenticator.</p>
+    </div>
+  <% end %>
+
+  <% if @user.otp_required_for_login %>
+    <h3>Backup Codes</h3>
+    <p>Click this button to generate backup codes that will let you login in case you lose access to your device.
+    Please note that clicking the button will generate NEW codes and any previously generated codes will be invalidated.</p>
+
+    <%= link_to "Generate Backup Codes", users_otp_backup_codes_path, :class => "btn btn-success", :remote => true, "data-toggle" => "modal", "data-target" => "#backup-code-modal" %>
+
+    <div class="backup-codes">
+      <div class="modal fade" id="backup-code-modal" title="Backup Codes" role="dialog">
+        <div class="vertical-alignment-helper">
+          <div class="modal-dialog vertical-align-center">
+            <div class="modal-header">
+              <button aria-hidden="true" class="close" data-dismiss="modal" type="button">×</button>
+              <h3 id="backupCodeModalLabel">Backup Codes</h3>
+            </div>
+            <div class="modal-body backup-code-modal-body">
+            </div>
+            <div class="modal-footer">
+              <button aria-hidden="true" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>

@@ -1,0 +1,251 @@
+$color1: #191b23;    // Page background
+$color2: #303543;    // Column background
+$color3: #ddd;       // Text color
+$color3a: #964596;   // Bold text color
+$color4: #204080;    // Selected color
+$color5: #4080FF;    // Link color
+$color5a: #4080FF;   // Visited link color
+$color6: #aaa;       // Disabled text
+
+// $color1: #191b23; // Page background
+// $color2: #303543; // Column background
+// $color3: #ddd;    // Text color
+// $color3a: #cc3;   // Bold text color
+// $color4: #0f0;    // Selected color
+// $color5: #04d;    // Link color
+// $color5a: #00d;   // Visited link color
+
+html, body, .initrax-container.container-fluid {
+    font-family: 'Cabin', sans-serif;
+    font-size: 14px;
+    line-height: 18px;
+    text-align: middle;
+    height: 100%;
+    background-color: $color1;
+    font-weight: normal;
+    color: $color3;
+}
+a {
+    text-decoration: none;
+    color: $color5;
+    font-weight: bold;
+    &:hover {
+        text-decoration: underline;
+        font-weight: bold;
+        color: $color5a;
+    }
+    &:visited {
+        text-decoration: none;
+        color: $color5a;
+        font-weight: normal;
+    }
+}
+a.btn {
+  color: #fff;
+}
+strong {
+    font-weight: bold;
+    color: $color3a;
+}
+.container-fluid > .row {
+    overflow-x: auto;
+    white-space: nowrap;
+}
+.container-fluid > .row > .col-md-2 {
+   display: inline-block;
+   float: none;
+}
+.full-height-row > div {
+  height: 98%;
+}
+.full-height-row section {
+  display: inline-block;
+  width: 100%;
+  vertical-align: top;
+  height: 100%;
+}
+.initrax-column {
+  margin: 4px;
+  padding: 4px;
+  background-color: $color2;
+  color: $color3;
+  overflow-y: scroll;
+  .add-btn {
+    margin-bottom: 50px;
+  }
+  .column-header {
+      margin: 0px;
+      padding: 5px;
+      border-bottom: 1px solid $color1;
+      font-size: 20px;
+      font-weight: bold;
+      vertical-align: middle;
+      h3 {
+          margin: 0px;
+          display: inline-block;
+          padding: 0px;
+          font-size: 20px;
+      }
+      a.btn, button.btn {
+          float: right;
+          margin-left: 3px;
+      }
+  }
+  .panel {
+      margin: 4px;
+      border: 2px solid $color1;
+      background-color: $color1;
+      .panel-body {
+          border: 2px solid $color1;
+          background-color: $color1;
+          .col-md-6 {
+              padding: 0px;
+              margin: 0px;
+          }
+          .badge {
+              margin-top: -3px;
+              padding: 2px 5px;
+          }
+          input {
+              margin: 2px 0px;
+              width: 100%;
+          }
+          button {
+              width: 98%;
+              margin: 2px 0px 0px 3px;
+          }
+          button.close {
+            width: auto;
+            position: relative;
+            top: -20;
+            right: -10;
+            color: red;
+            text-shadow: none;
+            opacity: 1;
+          }
+      }
+  }
+  .selected {
+      border: 2px solid $color4;
+  }
+  .scrollable {
+      float: left;
+      width: 100%;
+      white-space: normal;
+      .user-info {
+          float: none;
+          display: inline-block;
+          width: 100%;
+          margin: 8px 0px;
+          padding: 4px 2px;
+          background-color: $color1;
+          .col-md-3 {
+              padding: 0px 2px;
+          }
+          .col-md-9 {
+              padding: 0px 2px;
+          }
+          p {
+              padding: 0px;
+              margin: 0px;
+          }
+      }
+      .welcome-message {
+          padding: 4px;
+          background-color: $color1;
+      }
+  }
+}
+.modal {
+    .modal-header, .modal-footer {
+        background-color: $color2;
+        border: 0px;
+    }
+    .modal-header button.close {
+        color: $color3;
+    }
+    .modal-content {
+        background-color: $color1;
+        .table-striped>tbody>tr:nth-of-type(odd) {
+          background-color: $color2;
+        }
+        .table-striped>tbody>tr:nth-of-type(even) {
+          background-color: $color1;
+        }
+        .table {
+          text-shadow: none;
+          color: $color3;
+          tr, td {
+            border: 0px;
+          }
+          th, td {
+            font-weight: normal;
+            label {
+              font-weight: normal;
+            }
+          }
+        }
+    }
+}
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+  background-color: $color6;
+}
+.navbar {
+  margin-bottom: 0px;
+  .btn-sign-in {
+    margin-right: 3px;
+  }
+}
+.jumbotron {
+  background-image: url(/assets/dice_pattern.png);
+  height: 450px;
+  h1 {
+    margin-top: 120px;
+  }
+}
+section#details {
+  height: 450px;
+}
+.user-control-panel {
+  .panel {
+    .panel-heading {
+      background-color: $color2;
+    }
+    border: 8px solid $color2;
+    background-color: $color1;
+    margin-top: 30px;
+    color: $color6;
+  }
+}
+.backup-codes .modal {
+  width: 50%;
+  margin: auto;
+  .vertical-alignment-helper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    display:table;
+    height: 100%;
+    width: 100%;
+    pointer-events:none;
+  }
+  .vertical-align-center {
+    display: table-cell;
+    vertical-align: middle;
+    pointer-events:none;
+  }
+  .modal-body {
+    width: 100%;
+    height: inherit;
+    margin: 0 auto;
+    pointer-events: all;
+    padding: 50px;
+    background-color: $color1;
+    .code {
+      padding: 2px;
+      margin: 2px 2px 20px 2px;
+      font-size: 18px;
+    }
+  }
+}

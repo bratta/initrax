@@ -1,0 +1,191 @@
+<template>
+<div class="modal fade in" id="combatModal" tabindex="-1" role="dialog" aria-labelledby="combatModalLabel" style="display: block;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" @click="$emit('close')"><span aria-hidden="true">×</span></button>
+        <h4 class="modal-title form-inline" id="combatModalLabel">
+          Add to Combat
+          <select class="form-control" v-model="selectedCombat" @change="disableNewCombatName">
+            <option></option>
+            <option v-for="combat in combatNames" v-bind:value="combat.id">
+              {{ combat.name }}
+            </option>
+          </select> or
+          <input type="text" placeholder="New Encounter" v-model="newCombatName" @change="disableCombatName">
+        </h4>
+      </div>
+      <div class="modal-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Character</th>
+              <th>Type</th>
+              <th>Initiative Roll</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="combatant in sortedCombatants">
+              <td>{{combatant.character.name}}</td>
+              <td v-if="combatant.character.is_player"><span class="badge">PC</span></td>
+              <td v-else="!combatant.character.is_player"><span class="badge">NPC</span></td>
+              <td><input type="number" class="form-control" v-model="initiativeRolls[combatant.character.id]" :disabled="combatant.character.roll_automatically"></td>
+              <td><label><input type="checkbox" v-model="combatant.character.roll_automatically" @click="checkAutomaticRoll(combatant)"> Roll Automatically</label></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" @click="saveCombat">Save changes</button>
+        <button type="button" class="btn btn-warning" @click="$emit('close')">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+</template>
+
+<script>
+export default {
+  props: ['characters'],
+
+  data: function () {
+    return {
+      selectedCombat: null,
+      newCombatName: null,
+      combatants: [],
+      initiativeRolls: {},
+      combatNames: [],
+      errors: []
+    }
+  },
+
+  created: function() {
+    this.fetchCombatNames();
+    this.populateCombatants();
+  },
+
+  methods: {
+    fetchCombatNames: function() {
+      const vm = this;
+      axios.get('/api/combats/names.json')
+        .then(function(response) {
+          vm.combatNames = response.data;
+        })
+        .catch(function(e) {
+          vm.errors.push(e);
+        });
+    },
+
+    populateCombatants: function() {
+      const vm = this;
+      _.each(this.characters, function(character) {
+        var newCombatant = new Combatant();
+        newCombatant.user_id = vm.current_user.id;
+        newCombatant.character = character;
+        newCombatant.hit_points = character.hit_points;
+        vm.combatants.push(newCombatant);
+        vm.initiativeRolls[newCombatant.character.id] = '';
+      });
+    },
+
+    checkAutomaticRoll: function(combatant) {
+      if (combatant.character.roll_automatically) {
+        this.initiativeRolls[combatant.character.id] = '';
+      }
+    },
+
+    disableNewCombatName: function() {
+      if (this.selectedCombat) {
+        this.newCombatName = '';
+      }
+    },
+
+    disableCombatName: function() {
+      if (this.newCombatName) {
+        this.selectedCombat = '';
+      }
+    },
+
+    saveCombat: function() {
+      if (this.newCombatName) {
+        this.createCombat();
+      } else if (this.selectedCombat) {
+        this.updateCombat();
+      } else {
+        this.$emit('close');
+      }
+    },
+
+    rollInitiative: function(combatant) {
+      var roll = this.initiativeRolls[combatant.character.id];
+      if (combatant.character.roll_automatically) {
+        roll = Math.floor(Math.random() * 19) + 1;
+      }
+      return roll + combatant.character.initative_bonus;
+    },
+
+    setInitiativeOrder: function(combatants, maxDisplayOrder=0) {
+      const vm = this;
+      // Add the new combatants to the END of combat
+      // in order based on their rolls
+      _.each(combatants, function(combatant) {
+        combatant.display_order = maxDisplayOrder + vm.rollInitiative(combatant);
+      });
+      // Now reset the display orders so that they are
+      // consecutive.
+      _.each(vm.combatants, function(combatant, index) {
+        combatant.display_order = index;
+      });
+    },
+
+    updateCombat: function() {
+      const vm = this;
+      axios.get('/api/combats/'+vm.selectedCombat+'.json')
+        .then(function(response) {
+          var combat = Combat.from_json(response.data);
+          var maxDisplayOrder = _.max(_.map(combat.combatants, "display_order"));
+          _.each(vm.combatants, function(combatant) {
+            combat.combatants.push(combatant);
+          });
+          vm.setInitiativeOrder(combat.combatants, maxDisplayOrder);
+          axios.put('/api/combats/'+vm.selectedCombat, combat.to_json())
+            .then(function(response) {
+              vm.eventHub.$emit('combat-saved');
+              vm.$emit('close');
+            })
+            .catch(function(e) {
+              vm.errors.push(e);
+            });
+        })
+        .catch(function(e) {
+          vm.errors.push(e);
+        });
+    },
+
+    createCombat: function() {
+      const vm = this;
+      var combat = new Combat(null, vm.current_user.id, this.newCombatName, true, vm.combatants);
+      vm.setInitiativeOrder(combat.combatants);
+      axios.post('/api/combats', combat.to_json())
+        .then(function(response) {
+          vm.eventHub.$emit('combat-saved');
+          vm.$emit('close');
+        })
+        .catch(function(e) {
+          vm.errors.push(e);
+        });
+    }
+  },
+
+  computed: {
+    sortedCombatants: function() {
+      const vm = this;
+      return _.orderBy(vm.combatants, ["character.is_player", "character.name"], ["desc", "asc"]);
+    }
+  }
+}
+</script>
+
+<style scoped>
+</style>
