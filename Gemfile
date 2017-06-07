@@ -20,7 +20,9 @@ gem 'devise-two-factor'
 gem 'rqrcode'
 gem 'decent_exposure'
 gem 'active_model_serializers', '~> 0.10.0'
-gem 'browserify-rails'
+gem 'sprockets', github: 'rails/sprockets'
+gem 'babel-transpiler'
+#gem 'sprockets-commoner'
 
 group :development, :test do
   gem 'foreman'

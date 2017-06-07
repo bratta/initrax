@@ -39,3 +39,6 @@ config/deploy/*
 .DS_Store
 
 postgres
+/public/packs
+/public/packs-test
+/node_modules
