@@ -70,6 +70,12 @@ Rails.application.configure do
     :enable_starttls_auto => ENV['SMTP_ENABLE_STARTTLS_AUTO'] || true,
   }
 
+	port     = ENV.fetch('PORT') { 3000 }
+	host     = ENV.fetch('LOCAL_DOMAIN') { "localhost:#{port}" }
+	web_host = ENV.fetch('WEB_DOMAIN') { host }
+	https    = ENV['LOCAL_HTTPS'] == 'true'
+
+  config.action_mailer.default_url_options = { host: web_host, protocol: https ? 'https://' : 'http://', trailing_slash: false }
   config.action_mailer.delivery_method = ENV.fetch('SMTP_DELIVERY_METHOD', 'smtp').to_sym
 
   # Ignore bad email addresses and do not raise email delivery errors.
