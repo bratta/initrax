@@ -19,3 +19,4 @@ services:
     volumes:
       - ./public/assets:/initrax/public/assets
       - ./public/system:/initrax/public/system
+      - ./public/packs:/initrax/public/packs

@@ -34,4 +34,4 @@ RUN apk -U upgrade && apk add --no-cache \
 
 COPY . /initrax
 
-VOLUME /initrax/public/system /initrax/public/assets
+VOLUME /initrax/public/system /initrax/public/assets /initrax/public/packs
