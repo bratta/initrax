@@ -5,13 +5,13 @@
       <div class="modal-header">
         <button type="button" class="close" aria-label="Close" @click="$emit('close')"><span aria-hidden="true">×</span></button>
         <h4 class="modal-title form-inline" id="combatModalLabel">
-          Add to Combat
+          Add to:&nbsp;
           <select class="form-control" v-model="selectedCombat" @change="disableNewCombatName">
             <option></option>
             <option v-for="combat in combatNames" v-bind:value="combat.id">
               {{ combat.name }}
             </option>
-          </select> or
+          </select> &nbsp;or&nbsp;
           <input type="text" placeholder="New Encounter" v-model="newCombatName" @change="disableCombatName">
         </h4>
       </div>
