@@ -12,12 +12,12 @@
             v-bind:key="character.id" @click="clickHandler(character)"
             v-bind:class="isSelected(character)">
           <div class="panel-body">
-            <strong>{{character.name}}</strong><br>
+            <strong>{{character.name}}</strong>
+            <span v-if="character.is_player" class="badge">PC</span>
+            <span v-else="!character.is_player" class="badge">NPC</span><br>
             <strong>HP:</strong> {{character.hit_points}}
             <strong>Init:</strong> {{character.initiative_bonus}}
             <strong>Level:</strong> {{character.level}}
-            <span v-if="character.is_player" class="badge">PC</span>
-            <span v-else="!character.is_player" class="badge">NPC</span>
           </div>
         </li>
       </ul>
