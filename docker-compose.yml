@@ -15,7 +15,6 @@ services:
       - "3000:3000"
     depends_on:
       - db
-      # - redis
     volumes:
       - ./public/assets:/initrax/public/assets
       - ./public/system:/initrax/public/system

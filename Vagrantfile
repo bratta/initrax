@@ -22,8 +22,6 @@ sudo apt-get install \
   libxslt1-dev \
   imagemagick \
   nodejs \
-  redis-server \
-  redis-tools \
   postgresql \
   postgresql-contrib \
   yarn \

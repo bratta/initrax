@@ -12,8 +12,6 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'dotenv-rails'
 gem 'tzinfo-data'
-gem 'hiredis'
-gem 'redis', '~>3.2', require: ['redis', 'redis/connection/hiredis']
 gem 'webpacker', github: 'rails/webpacker'
 gem 'devise'
 gem 'devise-two-factor'
