@@ -11,7 +11,7 @@
             <div class="col-md-3">
               <img :src="current_user.avatar_url">
             </div>
-            <div class="col-md-9">
+            <div class="col-md-9 user-links">
               <p>{{ current_user.username }}</p>
               <p><a href="/users/edit">Edit Profile</a></p>
             </div>
