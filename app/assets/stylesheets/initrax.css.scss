@@ -172,6 +172,12 @@ strong {
         .table-striped>tbody>tr:nth-of-type(odd) {
           background-color: $color2;
         }
+        input[type=text] {
+          color: $color1;
+        }
+        select {
+          width: 175px;
+        }
         .table-striped>tbody>tr:nth-of-type(even) {
           background-color: $color1;
         }
