@@ -155,6 +155,9 @@ strong {
           background-color: $color1;
       }
   }
+  @media (max-device-width: 1280px) and (orientation: landscape) {
+    width: 225px;
+  }
 }
 .modal {
     .modal-header, .modal-footer {
