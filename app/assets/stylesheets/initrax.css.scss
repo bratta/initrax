@@ -25,6 +25,10 @@ html, body, .initrax-container.container-fluid {
     font-weight: normal;
     color: $color3;
 }
+.initrax-container {
+  overflow-y: hidden;
+  overflow-x: scroll;
+}
 a {
     text-decoration: none;
     color: $color5;
@@ -98,6 +102,7 @@ strong {
       .panel-body {
           border: 2px solid $color1;
           background-color: $color1;
+          padding: 10px;
           .col-md-6 {
               padding: 0px;
               margin: 0px;
@@ -148,6 +153,9 @@ strong {
           p {
               padding: 0px;
               margin: 0px;
+          }
+          .user-links {
+            padding-left: 4px;
           }
       }
       .welcome-message {
@@ -257,4 +265,25 @@ section#details {
       font-size: 18px;
     }
   }
+}
+
+body {
+  scrollbar-base-color: $color2;
+  scrollbar-base-color: $color2;
+  scrollbar-3dlight-color: $color2;
+  scrollbar-highlight-color: $color2;
+  scrollbar-track-color: $color1;
+  scrollbar-arrow-color: $color1;
+  scrollbar-shadow-color: $color2;
+  scrollbar-dark-shadow-color: $color2;
+}
+::-webkit-scrollbar {
+    background: $color1;
+}
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.4);
+    border: solid $color1 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.7);
 }
