@@ -20,7 +20,9 @@ you should be good to go.
     + [Self-Installation](#self-installation)
     + [Steps to Install via Docker](#docker)
     + [Steps to Install Manually](#manual)
-    + [Contributing to Initrax](#contributing)
+  * [Contributing to Initrax](#contributing)
+    + [Issues](#issues)
+    + [Testing](#testing)
   * [License](#license)
 
 ## <a name="features"></a>Key Features
@@ -185,13 +187,18 @@ following:
   do, but since I normally deploy this with Docker it has been low
   priority.
 
-### <a name="contributing"></a>Contributing to Initrax
+## <a name="contributing"></a>Contributing to Initrax
 
+### <a name="issues"></a>Issues
 * For bugs or feature requests, [submit an issue](https://github.com/bratta/initrax/issues) via Github.
 * If you would like to contribute code, please feel free to [send pull requests](https://github.com/bratta/initrax/pulls)
   for existing issues or features you would like to see. If
   they fit with the general philosophy of the application, don't break
   the app, and tests pass, they will likely be approved.
+
+### <a name="testing"></a>Testing
+
+TODO: Still working out details on testing this code. I know, bad dev! Bad!
 
 ## <a name="license"></a>License
 
