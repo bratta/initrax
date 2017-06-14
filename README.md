@@ -1,6 +1,6 @@
 # README
 
-## Initrax Initiative Tracker
+## <a name="about"></a>Initrax Initiative Tracker
 
 *Initrax* is a simple, web-based iniative tracker for pen-and-paper role-playing games.
 It was written initially to support [Pathfinder](http://paizo.com/pathfinderRPG) but
@@ -10,22 +10,35 @@ you should be good to go.
 
 ## Table of Contents
 
-## Key Features
+- [About](#about)
+  * [Key Features](#features)
+    + [Philosophy](#philosophy)
+    + [User Access](#access)
+    + [Application Capabilities](#capabilities)
+  * [Using Initrax](#using)
+  * [Hacker Central](#hacker-central)
+    + [Self-Installation](#self-installation)
+    + [Steps to Install via Docker](#docker)
+    + [Steps to Install Manually](#manual)
+    + [Contributing to Initrax](#contributing)
+  * [License](#license)
 
-### Philosophy
+## <a name="features"></a>Key Features
+
+### <a name="philosophy"></a>Philosophy
 
 The goal of Initrax is to stay minimal and out of the way. Too many
 features will just detract from the game and keep you bogged down, when
 the goal of the application is solely intended to keep track of combat
 turn order with minimal fuss.
 
-### User Access
+### <a name="access"></a>User Access
 
 Secured by SSL, user access is a simple registration with the optional
 ability to use [multi-factor authentication](https://en.wikipedia.org/wiki/Multi-factor_authentication) 
 by way of an authenticator app like [Google Authenticator](https://support.google.com/accounts/answer/1066447?hl=en).
 
-### Application Capabilities
+### <a name="capabilities"></a>Application Capabilities
 
 You can do the following in Initrax:
 
@@ -40,20 +53,20 @@ You can do the following in Initrax:
 * Re-order your characters and combat
 * Persist everything to the database so you can pick up combat later.
 
-## Using Initrax
+## <a name="using"></a>Using Initrax
 
 You can register an account by visiting https://initrax.night.coffee and
 start your game today!
 
-## Hacker Central
+## <a name="hacker-central"></a>Hacker Central
 
-### Self-Installation
+### <a name="self-installation"></a>Self-Installation
 
 Would you like to host your own copy of Initrax? Well, you are in luck!
 You need a machine capable of running Docker, or the ability to install
 and manage the necessary services yourself.
 
-### Steps to Install via Docker
+### <a name="docker"></a>Steps to Install via Docker
 
 * Need a Docker VM? Digital Ocean provides droplets with Docker
   pre-installed.
@@ -156,7 +169,7 @@ of your choice.
   }
 ```
 
-### Steps to Install Manually
+### <a name="manual"></a>Steps to Install Manually
 
 *TODO:* Currently we don't have manual instructions detailed like they
 should be. It's a basic Rails application, so if you are familiar with
@@ -172,7 +185,7 @@ following:
   do, but since I normally deploy this with Docker it has been low
   priority.
 
-### Contributing to Initrax
+### <a name="contributing"></a>Contributing to Initrax
 
 * For bugs or feature requests, [submit an issue](https://github.com/bratta/initrax/issues) via Github.
 * If you would like to contribute code, please feel free to [send pull requests](https://github.com/bratta/initrax/pulls)
@@ -180,7 +193,7 @@ following:
   they fit with the general philosophy of the application, don't break
   the app, and tests pass, they will likely be approved.
 
-## License
+## <a name="license"></a>License
 
 The MIT License
 
