@@ -1,0 +1,5 @@
+@reboot    /usr/local/bin/docker-compose -f /home/initrax/live/docker-compose.yml up -d > /dev/null 2>&1
+
+# Backups
+30 8 * * * /home/initrax/bin/backup-postgres > /dev/null 2>&1
+0  9 * * * /usr/bin/find /home/initrax/backups -mtime +30 -type f -delete > /dev/null 2>&1

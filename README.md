@@ -171,6 +171,22 @@ of your choice.
   }
 ```
 
+#### Server Management
+
+This repository contains a few handy scripts in the `scripts/` directory
+that can help you manage your installation.
+
+* `scripts/upgrade-initrax` is a simple shell script that will pull down
+  the latest master or tagged release, and allow you to optionally
+  migrate the database or precompile assets. See `./upgrade-initrax -h`
+  for usage information.
+* `scripts/backup-postgres` performs a simple backup of the database to
+  a specified location. See `scripts/backup-postgres -h` for usage
+  information.
+* `scripts/crontab.example` shows what a sample crontab might look like.
+  It starts the docker containers on reboot, schedules regular backups,
+  and prunes backups older than 30 days.
+
 ### <a name="manual"></a>Steps to Install Manually
 
 *TODO:* Currently we don't have manual instructions detailed like they
