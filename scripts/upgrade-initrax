@@ -1,0 +1,87 @@
+#!/bin/bash
+
+db_migrate=false
+assets_precompile=false
+initrax_path="/home/initrax/live"
+branch=master
+
+usage() {
+  echo ""
+  echo "Usage: $0 -a -d -p -i </path/to/initrax> -h"
+  echo "  -b       Git branch/tag (default: $branch)"
+  echo "  -d       Database db:migrate (default: $db_migrate)"
+  echo "  -p       Precompile assets with assets:precompile (default: $assets_precompile)"
+  echo "  -a       Perform all tasks (db:migrate and assets:precompile)"
+  echo "  -i /path Path to the cloned Initrax repository (default: $initrax_path)"
+  echo "  -h       This screen (help)"
+  echo ""
+  exit 1
+}
+
+while getopts ":ab:dphi:" opt; do
+  case $opt in
+    a)
+      db_migrate=true
+      assets_precompile=true
+      ;;
+    b)
+      branch=$OPTARG
+      ;;
+    d)
+      db_migrate=true
+      ;;
+    p)
+      assets_precompile=true
+      ;;
+    i)
+      initrax_path=$OPTARG
+      ;;
+    h)
+      usage
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      usage
+      ;;
+    :)
+      echo "Option -$OPTARG requires an argument." >&2
+      usage
+      ;;
+  esac
+done
+
+if [ ! -d "$initrax_path" ]; then
+  echo "Initrax path $initrax_path does not exist"
+  exit 1
+fi
+
+pushd .
+
+echo "Upgrading Initrax to $branch"
+cd $initrax_path
+/usr/bin/git fetch --all --tags --prune
+
+if [ `/usr/bin/git tag -l $branch | wc -l` -gt 0 ]
+then
+  /usr/bin/git checkout tags/$branch
+  /usr/bin/git pull origin tags/$branch --rebase
+else
+  /usr/bin/git checkout $branch
+  /usr/bin/git pull origin $branch --rebase
+fi
+
+/usr/local/bin/docker-compose build
+/usr/local/bin/docker-compose up -d
+
+if [ "$db_migrate" = true ]; then
+  echo "Migrating database..."
+  /usr/local/bin/docker-compose run --rm app rails db:migrate
+fi
+
+if [ "$assets_precompile" = true ]; then
+  echo "Precompiling assets..."
+  /usr/local/bin/docker-compose run --rm app rails assets:precompile
+fi
+
+echo "Done!"
+popd

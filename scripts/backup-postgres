@@ -1,0 +1,38 @@
+#!/bin/bash
+
+backup_path="/home/initrax/backups"
+
+usage() {
+  echo ""
+  echo "Usage: $0 -p </path/to/backups> -h"
+  echo "  -p /path Path to store the backups (default: $backup_path)"
+  echo "  -h       This screen (help)"
+  echo ""
+  exit 1
+}
+
+while getopts ":p:h" opt; do
+  case $opt in
+    p)
+      backup_path=$OPTARG
+      ;;
+    h)
+      usage
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      usage
+      ;;
+    :)
+      echo "Option -$OPTARG requires an argument." >&2
+      usage
+      ;;
+  esac
+done
+
+if [ ! -d "$backup_path" ]; then
+  echo "Backup path $backup_path does not exist."
+  exit 1
+fi
+
+/usr/bin/docker exec -t live_db_1 pg_dumpall -c -U postgres | /bin/gzip > $backup_path/postgres_backup_`date +%d-%m-%Y"_"%H_%M_%S`.sql.gz
