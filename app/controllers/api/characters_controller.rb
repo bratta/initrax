@@ -50,6 +50,7 @@ class Api::CharactersController < ApplicationController
   end
 
   def next_display_order
-    current_user.characters.where(active: true).maximum(:display_order) + 1
+    character = current_user.characters.where(active: true).maximum(:display_order) || -1
+    return character + 1
   end
 end
