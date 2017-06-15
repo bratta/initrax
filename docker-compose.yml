@@ -4,7 +4,7 @@ services:
     restart: always
     image: postgres:alpine
     volumes:
-      - /home/initrax/postgresql:/var/lib/postgresql
+      - postgres:/var/lib/postgresql
 
   app:
     restart: always
@@ -19,3 +19,6 @@ services:
       - ./public/assets:/initrax/public/assets
       - ./public/system:/initrax/public/system
       - ./public/packs:/initrax/public/packs
+
+volumes:
+  postgres:
