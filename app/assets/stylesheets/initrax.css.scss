@@ -177,13 +177,17 @@ strong {
   }
 }
 .modal {
-    overflow-y: scroll;
+    overflow-y: initial !important;
     .modal-header, .modal-footer {
         background-color: $color2;
         border: 0px;
     }
     .modal-header button.close {
         color: $color3;
+    }
+    .modal-dialog {
+      height: 100%;
+      overflow-y: auto;
     }
     .modal-content {
         background-color: $color1;
