@@ -3,9 +3,16 @@
    <div class="column-header">
      <h3>Characters</h3>
      <button type="button" class="btn btn-xs btn-primary" @click="showCombatModal=true">+ Combat</button>
-     <button type="button" class="btn btn-xs btn-warning" @click="clearSelected" title="Clear Selection">✖️</button>
      <combat-modal v-if="showCombatModal" :characters.sync="selectedCharacters" @close="showCombatModal=false" />
     </div>
+    <br />
+    <div class="btn-group btn-group-justified">
+      <a class="btn btn-primary" @click="selectAll">All</a>
+      <a class="btn btn-primary" @click="selectPC">PC</a>
+      <a class="btn btn-primary" @click="selectNPC">NPC</a>
+      <a class="btn btn-primary" @click="clearSelected">None</a>
+    </div>
+    <br />
     <div class="scrollable">
       <ul class="list-unstyled" v-sortable="{ onUpdate: reorderCharacters }">
         <li v-for="character of characters" class="panel panel-default"
@@ -132,7 +139,32 @@ export default {
 
     clearSelected: function() {
       this.selectedCharacters = [];
-    }
+    },
+
+    selectCharacter: function(isPlayer) {
+      const vm = this;
+      _.each(this.characters, function(character) {
+        if (character.is_player == isPlayer && !vm.isSelected(character)[0]) {
+          vm.selectedCharacters.push(character);
+        }
+      });
+    },
+
+    selectPC: function() {
+      this.selectCharacter(true);
+    },
+
+    selectNPC: function() {
+      this.selectCharacter(false);
+    },
+
+    selectAll: function() {
+      const vm = this;
+      this.selectedCharacters = [];
+      _.each(this.characters, function(character) {
+        vm.selectedCharacters.push(character);
+      });
+    },
   }
 }
 </script>
