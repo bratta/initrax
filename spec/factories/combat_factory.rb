@@ -6,7 +6,7 @@ FactoryGirl.define do
 
     after :build do |combat, evaluator|
       (0..evaluator.number_of_combatants-1).each do |i|
-        combat.combatants << FactoryGirl.create(:combatant, user: combat.user)
+        combat.combatants << FactoryGirl.create(:combatant, user: combat.user, display_order: i)
       end
     end
     name Faker::Pokemon.location

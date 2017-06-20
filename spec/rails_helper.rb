@@ -5,6 +5,7 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'rspec/rails'
 require 'capybara/rspec'
 require 'support/factory_girl'
+require 'support/helpers'
 require 'database_cleaner'
 require 'faker'
 
@@ -18,6 +19,7 @@ end
 Capybara.javascript_driver = :selenium_chrome
 
 RSpec.configure do |config|
+  config.include Helpers
 
   # DatabaseCleaner configuration
   config.use_transactional_fixtures = false
