@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :character do
-    sequence(:name) { |n| "character#{n}" }
+    name Faker::Zelda.character
     hit_points 10
     initiative_bonus 4
     roll_automatically false

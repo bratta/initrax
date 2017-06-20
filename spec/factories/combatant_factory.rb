@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :combatant do
     hit_points 10
-    notes "Some notes here"
+    notes Faker::RickAndMorty.quote
     active true
     display_order 0
     calculated_roll 12

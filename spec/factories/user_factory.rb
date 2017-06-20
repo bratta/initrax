@@ -4,10 +4,10 @@ FactoryGirl.define do
       number_of_combats 2
       number_of_characters_per_combat 5
     end
-    sequence(:email) { |n| "user#{n}@example.com" }
+    email Faker::Internet.unique.email
     confirmed_at DateTime.now
-    password "beeftaco"
-    sequence(:username) {|n| "misterdobalina#{n}" }
+    password Faker::Internet.password
+    username Faker::Internet.unique.user_name
 
     after :create do |user, evaluator|
       (0..evaluator.number_of_combats-1).each do |i|

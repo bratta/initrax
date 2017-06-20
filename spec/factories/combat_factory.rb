@@ -9,7 +9,7 @@ FactoryGirl.define do
         combat.combatants << FactoryGirl.create(:combatant, user: combat.user)
       end
     end
-    sequence(:name) { |n| "combat #{n}" }
+    name Faker::Pokemon.location
     active true
   end
 end
