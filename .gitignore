@@ -44,3 +44,4 @@ postgres
 /node_modules
 
 .byebug_history
+spec/examples.txt

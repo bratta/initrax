@@ -5,5 +5,7 @@ class Character < ApplicationRecord
 
   accepts_nested_attributes_for :combatants
 
+  validates_presence_of :name
+
   scope :active, -> { where(active: true) }
 end
