@@ -3,9 +3,11 @@ ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
+require 'devise'
 require 'capybara/rspec'
 require 'support/factory_girl'
 require 'support/helpers'
+require 'support/controller_macros'
 require 'database_cleaner'
 require 'faker'
 
@@ -20,6 +22,8 @@ Capybara.javascript_driver = :selenium_chrome
 
 RSpec.configure do |config|
   config.include Helpers
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.extend ControllerMacros, type: :controller
 
   # DatabaseCleaner configuration
   config.use_transactional_fixtures = false
