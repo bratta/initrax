@@ -205,6 +205,37 @@ following:
 
 ## <a name="contributing"></a>Contributing to Initrax
 
+### <a name="vagrant"></a>Developing via Vagrant
+
+A `Vagrantfile` has been provided to spin up an Ubuntu VM and provision it with everything
+needed to get rolling with Initrax. You will need the following pieces of software to use this:
+
+* [Virtual Box](https://www.virtualbox.org/)
+* [Vagrant](https://www.vagrantup.com/)
+
+Next you need to make sure you have a `.env.development` file in place. If you haven't done so already,
+copy `.env.production.sample` to `.env.development` and edit the entries inside to match what you want
+for your vagrant development environment. Mostly you should be fine with just editing the values for
+`DB_USER` and `DB_NAME`.
+
+Once all that is done, in your terminal go to the directory where you cloned this project and type in:
+
+~~~
+  $ vagrant plugin install vagrant-hostsupdater  # Or manually add initrax.dev to your hosts file
+  $ vagrant up
+~~~
+
+It takes a while to comlete the initial provisioning, but then you will be able to do the following:
+
+~~~
+  $ vagrant ssh
+  $ cd /vagrant
+  $ foreman start
+~~~
+
+Then from your (host machine, not the vm) open your web browser to http://initrax.dev:3000 and the site
+should appear.
+
 ### <a name="issues"></a>Issues
 * For bugs or feature requests, [submit an issue](https://github.com/bratta/initrax/issues) via Github.
 * If you would like to contribute code, please feel free to [send pull requests](https://github.com/bratta/initrax/pulls)
@@ -214,7 +245,16 @@ following:
 
 ### <a name="testing"></a>Testing
 
-TODO: Still working out details on testing this code. I know, bad dev! Bad!
+Ruby tests are done with [rspec](http://rspec.info/) and [capybara](http://teamcapybara.github.io/capybara/).
+You need to clone the repository, have access to ruby, and the bundler gem installed.
+To run the specs, from the cloned repository directory, run the following:
+
+~~~
+  $ bundle     # One time, to fetch all the gem dependencies
+  $ rspec      # Runs all the specs in the specs/ directory
+~~~
+
+TODO: Still working out details on testing the javascript. I know, bad dev! Bad!
 
 ## <a name="license"></a>License
 

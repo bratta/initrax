@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-user = User.create username: "bratta", email: "tgourley@gmail.com", password: "changeme"
+user = User.create username: "initrax", email: "initrax@localhost", password: "initrax", confirmed_at: DateTime.now
 characters = Character.create([
   { user: user, name: "Vegeta", hit_points: 42, initiative_bonus: 5, roll_automatically: false, is_player: true, level: 13, display_order: 0 },
   { user: user, name: "Goku", hit_points: 142, initiative_bonus: 2, roll_automatically: true, is_player: false, level: 13, display_order: 1 }
