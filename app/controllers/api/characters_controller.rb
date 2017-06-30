@@ -1,56 +1,61 @@
-class Api::CharactersController < ApplicationController
-  respond_to :json
-  before_action :authenticate_user!
-  skip_before_action :verify_authenticity_token
-  expose :characters, -> { current_user.characters.where(active: true).order('display_order ASC') }
-  expose :character
+# frozen_string_literal: true
 
-  def index
-    respond_with :api, characters
-  end
+module Api
+  class CharactersController < ApplicationController
+    respond_to :json
+    before_action :authenticate_user!
+    skip_before_action :verify_authenticity_token
+    expose :characters, -> { current_user.characters.where(active: true).order('display_order ASC') }
+    expose :character
 
-  def show
-    respond_with :api, character
-  end
-
-  def create
-    new_character = character_params
-    new_character[:display_order] = next_display_order
-    respond_with :api, characters.create(new_character)
-  end
-
-  def update
-    character.update(character_params)
-    respond_with :api, character
-  end
-
-  def destroy
-    character.active = false
-    character.save
-    respond_with :api, character
-  end
-
-  def order
-    order_params[:order].each do |order_param|
-      char = Character.where(id: order_param[:id], user_id: current_user.id, active: true).first
-      char.update_attribute(:display_order, order_param[:display_order]) if char
+    def index
+      respond_with :api, characters
     end
-    render json: { status: :ok, message: :success }
-  end
 
-  private
+    def show
+      respond_with :api, character
+    end
 
-  def character_params
-    params.require(:character).permit(:id, :user_id, :name, :hit_points, :initiative_bonus, :roll_automatically, :is_player, :level, :active)
-  end
+    def create
+      new_character = character_params
+      new_character[:display_order] = next_display_order
+      respond_with :api, characters.create(new_character)
+    end
 
-  def order_params
-    params[:characters][:order] ||= []
-    params.require(:characters).permit(order: [:id, :display_order])
-  end
+    def update
+      character.update(character_params)
+      respond_with :api, character
+    end
 
-  def next_display_order
-    character = current_user.characters.where(active: true).maximum(:display_order) || -1
-    return character + 1
+    def destroy
+      character.active = false
+      character.save
+      respond_with :api, character
+    end
+
+    def order
+      order_params[:order].each do |order_param|
+        char = Character.where(id: order_param[:id], user_id: current_user.id, active: true).first
+        char&.update_attribute(:display_order, order_param[:display_order])
+      end
+      render json: { status: :ok, message: :success }
+    end
+
+    private
+
+    def character_params
+      params.require(:character).permit(:id, :user_id, :name, :hit_points, :initiative_bonus,
+                                        :roll_automatically, :is_player, :level, :active)
+    end
+
+    def order_params
+      params[:characters][:order] ||= []
+      params.require(:characters).permit(order: %i[id display_order])
+    end
+
+    def next_display_order
+      character = current_user.characters.where(active: true).maximum(:display_order) || -1
+      character + 1
+    end
   end
 end

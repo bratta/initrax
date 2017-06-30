@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe CombatantSerializer do
   subject { CombatantSerializer.new(FactoryGirl.create(:combatant)) }
 
@@ -9,7 +11,7 @@ RSpec.describe CombatantSerializer do
   end
 
   it 'includes the keys for the character' do
-    expect(subject_json(subject)["character"].keys).to contain_exactly(
+    expect(subject_json(subject)['character'].keys).to contain_exactly(
       'id', 'name', 'hit_points', 'initiative_bonus',
       'roll_automatically', 'is_player', 'level',
       'display_order', 'user_id'

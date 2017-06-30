@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -15,19 +17,19 @@ class User < ApplicationRecord
 
   def to_json_ui
     {
-      id: self.id,
-      username: self.username,
-      email: self.email,
-      homepage: self.homepage,
-      facebook: self.facebook,
-      twitter: self.twitter,
-      mastodon: self.mastodon,
-      avatar_url: self.avatar_url
+      id: id,
+      username: username,
+      email: email,
+      homepage: homepage,
+      facebook: facebook,
+      twitter: twitter,
+      mastodon: mastodon,
+      avatar_url: avatar_url
     }.to_json
   end
 
   def avatar_url
-    "https://www.gravatar.com/avatar/#{Digest::MD5.new().hexdigest(self.email)}?s=48"
+    "https://www.gravatar.com/avatar/#{Digest::MD5.new.hexdigest(email)}?s=48"
   end
 
   def update_without_password(params, *options)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe CombatSerializer do
   subject { CombatSerializer.new(FactoryGirl.create(:combat)) }
 
@@ -6,6 +8,6 @@ RSpec.describe CombatSerializer do
   end
 
   it 'orders combatants by display order ascending' do
-    expect(subject_json(subject)["combatants"].map {|c| c["display_order"]}).to eq([0, 1, 2])
+    expect(subject_json(subject)['combatants'].map { |c| c['display_order'] }).to eq([0, 1, 2])
   end
 end

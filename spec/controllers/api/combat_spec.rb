@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 RSpec.describe Api::CombatsController, type: :controller do
   login_user
 
-  describe "GET index" do
+  describe 'GET index' do
     it 'returns a json array of combats for the user' do
       get :index, format: :json
       expect(response).to be_success
@@ -10,22 +12,23 @@ RSpec.describe Api::CombatsController, type: :controller do
     end
   end
 
-  describe "GET show" do
+  describe 'GET show' do
     it 'returns json for an individual combat' do
       existing_combat = user.combats.first
       get :show, format: :json, params: { id: existing_combat.id }
       expect(response).to be_success
       result = JSON.parse(response.body)
-      expect(result.keys).to include("name")
+      expect(result.keys).to include('name')
     end
   end
 
-  describe "POST create" do
+  describe 'POST create' do
     it 'saves a combat and returns some json' do
       combat_name = Faker::Zelda.location
       character = Character.first
-      params = { combat: {
-        name: combat_name, combatants_attributes: [{
+      params = {
+        combat: {
+          name: combat_name, combatants_attributes: [{
             hit_points: 10, notes: Faker::RickAndMorty.quote, calculated_roll: 10, character_id: character.id
           }]
         }
@@ -33,15 +36,15 @@ RSpec.describe Api::CombatsController, type: :controller do
       post :create, format: :json, params: params
       expect(response).to be_success
       new_combat = JSON.parse(response.body)
-      expect(new_combat.keys).to include("id", "name", "combatants")
-      expect(new_combat["name"]).to eq(combat_name)
-      expect(new_combat["user_id"]).to eq(user.id)
-      expect(new_combat["combatants"].count).to eq(1)
-      expect(new_combat["combatants"][0]["character"]["id"]).to eq(character.id)
+      expect(new_combat.keys).to include('id', 'name', 'combatants')
+      expect(new_combat['name']).to eq(combat_name)
+      expect(new_combat['user_id']).to eq(user.id)
+      expect(new_combat['combatants'].count).to eq(1)
+      expect(new_combat['combatants'][0]['character']['id']).to eq(character.id)
     end
   end
-  
-  describe "PUT update" do
+
+  describe 'PUT update' do
     it 'updates a combat and returns some json' do
       combat = Combat.first
       params = JSON.parse(combat.to_json, symbolize_names: true)
@@ -53,8 +56,8 @@ RSpec.describe Api::CombatsController, type: :controller do
       expect(combat.name).to eq(new_name)
     end
   end
-  
-  describe "DELETE destroy" do
+
+  describe 'DELETE destroy' do
     it 'sets the active flag instead of hard deleting a combat' do
       combat = Combat.first
       delete :destroy, params: { id: combat.id }, format: :json
@@ -64,7 +67,7 @@ RSpec.describe Api::CombatsController, type: :controller do
     end
   end
 
-  describe "GET names" do
+  describe 'GET names' do
     it 'returns a light payload of ids and names for combat sessions' do
       get :names, format: :json
       expect(response).to be_success

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Character, type: :model do
   subject { FactoryGirl.build(:character) }
 
@@ -8,7 +10,7 @@ RSpec.describe Character, type: :model do
   it { should have_many(:combats).through :combatants }
   it { should accept_nested_attributes_for :combatants }
 
-  describe "#active" do
+  describe '#active' do
     it 'includes characters with the active flag' do
       active = FactoryGirl.create(:character, active: true)
       expect(Character.active).to include(active)
