@@ -2,6 +2,8 @@
 
 ## <a name="about"></a>Initrax Initiative Tracker
 
+![CircleCI Status](https://circleci.com/gh/bratta/initrax.png?style=shield&circle-token=525afaaf36cfb4383a64454d374bb249e43f354b)
+
 *Initrax* is a simple, web-based iniative tracker for pen-and-paper role-playing games.
 It was written initially to support [Pathfinder](http://paizo.com/pathfinderRPG) but
 can be used by any d20 system utilizing initiative rolls, tracking hit
