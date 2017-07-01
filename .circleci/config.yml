@@ -25,12 +25,12 @@ jobs:
         key: initrax-bundle-{{ checksum 'yarn.lock' }}
 
       - run:
-        name: Bundle Install
-        command: bundle install --path vendor/bundle
+          name: Bundle Install
+          command: bundle install --path vendor/bundle
 
       - run:
-        name: Yarn Install
-        command: yarn install
+          name: Yarn Install
+          command: yarn install
 
       - type: cache-save
         name: Store bundle cache
@@ -45,17 +45,17 @@ jobs:
           - ~/.yarn-cache
 
       - run:
-        name: Rubocop
-        command: bundle exec rubocop
+          name: Rubocop
+          command: bundle exec rubocop
 
       - run:
-        name: Wait for DB
-        command: dockerize -wait tcp://localhost:5432 -timeout 1m
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
 
       - run:
-        name: Database setup
-        command: bundle exec rails db:schema:load --trace
+          name: Database setup
+          command: bundle exec rails db:schema:load --trace
 
       - run:
-        name: Run Rspec specs
-        command: bundle exec rspec
+          name: Run Rspec specs
+          command: bundle exec rspec
