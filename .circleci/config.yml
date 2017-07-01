@@ -61,7 +61,7 @@ jobs:
           command: bundle exec rspec
 
       - deploy:
-        command: |
-          if [ "${CIRCLE_BRANCH}" == "master" ];
-            then ssh -p $SSH_PORT $SSH_USER@$SSH_HOST '~/bin/upgrade-initrax -a'
-          fi
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ];
+              then ssh -p $SSH_PORT $SSH_USER@$SSH_HOST '~/bin/upgrade-initrax -a'
+            fi
