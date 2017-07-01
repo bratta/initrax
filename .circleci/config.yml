@@ -12,17 +12,17 @@ jobs:
         environment:
           POSTGRES_USER: initrax
           POSTGRES_DB: initrax_test
-          POSTGRES_PASSWORD: ''
+          POSTGRES_PASSWORD: ""
     steps:
       - checkout
 
       - type: cache-restore
         name: Restore bundle cache
-        key: initrax-bundle-{{ checksum 'Gemfile.lock' }}
+        key: initrax-bundle-{{ checksum "Gemfile.lock" }}
 
       - type: cache-restore
         name: Restore yarn cache
-        key: initrax-bundle-{{ checksum 'yarn.lock' }}
+        key: initrax-bundle-{{ checksum "yarn.lock" }}
 
       - run:
           name: Bundle Install
@@ -34,13 +34,13 @@ jobs:
 
       - type: cache-save
         name: Store bundle cache
-        key: initrax-bundle-{{ checksum 'Gemfile.lock' }}
+        key: initrax-bundle-{{ checksum "Gemfile.lock" }}
         paths:
           - vendor/bundle
 
       - type: cache-save
         name: Store yarn cache
-        key: initrax-yarn-{{ checksum 'yarn.lock' }}
+        key: initrax-yarn-{{ checksum "yarn.lock" }}
         paths:
           - ~/.yarn-cache
 
