@@ -63,5 +63,5 @@ jobs:
       - deploy:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ];
-              then ssh -p $SSH_PORT $SSH_USER@$SSH_HOST '~/bin/upgrade-initrax -a';
+              then echo "$SSH_KNOWN_HOSTS" >> ~/.ssh/known_hosts; ssh -p $SSH_PORT $SSH_USER@$SSH_HOST '~/bin/upgrade-initrax -a';
             fi
