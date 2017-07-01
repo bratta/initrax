@@ -13,49 +13,49 @@ jobs:
           POSTGRES_USER: initrax
           POSTGRES_DB: initrax_test
           POSTGRES_PASSWORD: ''
-        steps:
-          - checkout
+    steps:
+      - checkout
 
-          - type: cache-restore
-            name: Restore bundle cache
-            key: initrax-bundle-{{ checksum 'Gemfile.lock' }}
+      - type: cache-restore
+        name: Restore bundle cache
+        key: initrax-bundle-{{ checksum 'Gemfile.lock' }}
 
-          - type: cache-restore
-            name: Restore yarn cache
-            key: initrax-bundle-{{ checksum 'yarn.lock' }}
+      - type: cache-restore
+        name: Restore yarn cache
+        key: initrax-bundle-{{ checksum 'yarn.lock' }}
 
-          - run:
-            name: Bundle Install
-            command: bin/bundle install --path vendor/bundle
+      - run:
+        name: Bundle Install
+        command: bin/bundle install --path vendor/bundle
 
-          - run:
-            name: Yarn Install
-            command: yarn install
+      - run:
+        name: Yarn Install
+        command: yarn install
 
-          - type: cache-save
-            name: Store bundle cache
-            key: initrax-bundle-{{ checksum 'Gemfile.lock' }}
-            paths:
-              - vendor/bundle
+      - type: cache-save
+        name: Store bundle cache
+        key: initrax-bundle-{{ checksum 'Gemfile.lock' }}
+        paths:
+          - vendor/bundle
 
-          - type: cache-save
-            name: Store yarn cache
-            key: initrax-yarn-{{ checksum 'yarn.lock' }}
-            paths:
-              - ~/.yarn-cache
+      - type: cache-save
+        name: Store yarn cache
+        key: initrax-yarn-{{ checksum 'yarn.lock' }}
+        paths:
+          - ~/.yarn-cache
 
-          - run:
-            name: Rubocop
-            command: bin/rubocop
+      - run:
+        name: Rubocop
+        command: bin/rubocop
 
-          - run:
-            name: Wait for DB
-            command: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run:
+        name: Wait for DB
+        command: dockerize -wait tcp://localhost:5432 -timeout 1m
 
-          - run:
-            name: Database setup
-            command: bin/rails db:schema:load --trace
+      - run:
+        name: Database setup
+        command: bin/rails db:schema:load --trace
 
-          - run:
-            name: Run Rspec specs
-            command: rspec
+      - run:
+        name: Run Rspec specs
+        command: rspec
