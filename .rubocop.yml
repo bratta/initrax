@@ -1,0 +1,21 @@
+# frozen_string_literal: true
+
+AllCops:
+  Exclude:
+    - 'Vagrantfile'
+    - db/**/*
+    - script/**/*
+    - bin/**/*
+    - node_modules/**/*
+Rails:
+  Enabled: true
+Documentation:
+  Enabled: false
+Metrics/LineLength:
+  Max: 160
+Metrics/BlockLength:
+  Max: 100
+Metrics/MethodLength:
+  Max: 20
+Style/RaiseArgs:
+  EnforcedStyle: compact

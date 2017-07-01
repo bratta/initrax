@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 RSpec.describe Combatant, type: :model do
   subject { FactoryGirl.build(:combatant) }
   it { should belong_to :user }
   it { should belong_to :combat }
   it { should belong_to :character }
 
-  describe "#active" do
+  describe '#active' do
     it 'includes combatants with the active flag' do
       active = FactoryGirl.create(:combatant, active: true)
       expect(Combatant.active).to include(active)

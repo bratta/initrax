@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Combat, type: :model do
   subject { FactoryGirl.build(:combat) }
 
@@ -8,7 +10,7 @@ RSpec.describe Combat, type: :model do
   it { should have_many(:characters).through :combatants }
   it { should accept_nested_attributes_for :combatants }
 
-  describe "#active" do
+  describe '#active' do
     it 'includes combats with the active flag' do
       active = FactoryGirl.create(:combat, active: true)
       expect(Combat.active).to include(active)

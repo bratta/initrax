@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryGirl.define do
   factory :combatant do
     hit_points 10
@@ -6,7 +8,7 @@ FactoryGirl.define do
     display_order 0
     calculated_roll 12
 
-    after :create do |combatant, evaluator|
+    after :create do |combatant|
       combatant.character = FactoryGirl.create(:character, user: combatant.user)
     end
   end

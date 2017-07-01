@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -47,7 +49,7 @@ Rails.application.configure do
   config.log_level = :debug
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -59,15 +61,15 @@ Rails.application.configure do
 
   # E-mails
   config.action_mailer.smtp_settings = {
-    :port                 => ENV['SMTP_PORT'],
-    :address              => ENV['SMTP_SERVER'],
-    :user_name            => ENV['SMTP_LOGIN'].presence,
-    :password             => ENV['SMTP_PASSWORD'].presence,
-    :domain               => ENV['SMTP_DOMAIN'] || ENV['LOCAL_DOMAIN'],
-    :authentication       => ENV['SMTP_AUTH_METHOD'] == 'none' ? nil : ENV['SMTP_AUTH_METHOD'] || :plain,
-    :ca_file              => ENV['SMTP_CA_FILE'].presence,
-    :openssl_verify_mode  => ENV['SMTP_OPENSSL_VERIFY_MODE'],
-    :enable_starttls_auto => ENV['SMTP_ENABLE_STARTTLS_AUTO'] || true,
+    port:                 ENV['SMTP_PORT'],
+    address:              ENV['SMTP_SERVER'],
+    user_name:            ENV['SMTP_LOGIN'].presence,
+    password:             ENV['SMTP_PASSWORD'].presence,
+    domain:               ENV['SMTP_DOMAIN'] || ENV['LOCAL_DOMAIN'],
+    authentication:       ENV['SMTP_AUTH_METHOD'] == 'none' ? nil : ENV['SMTP_AUTH_METHOD'] || :plain,
+    ca_file:              ENV['SMTP_CA_FILE'].presence,
+    openssl_verify_mode:  ENV['SMTP_OPENSSL_VERIFY_MODE'],
+    enable_starttls_auto: ENV['SMTP_ENABLE_STARTTLS_AUTO'] || true
   }
 
   config.action_mailer.default_url_options = { host: ENV['DOMAIN'], protocol: ENV['PROTOCOL'], trailing_slash: false }
@@ -91,7 +93,7 @@ Rails.application.configure do
   # require 'syslog/logger'
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
-  if ENV["RAILS_LOG_TO_STDOUT"].present?
+  if ENV['RAILS_LOG_TO_STDOUT'].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
     config.logger = ActiveSupport::TaggedLogging.new(logger)

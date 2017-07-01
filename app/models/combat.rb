@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Combat < ApplicationRecord
   belongs_to :user
   has_many :combatants, -> { active }, inverse_of: :combat
@@ -5,7 +7,7 @@ class Combat < ApplicationRecord
 
   accepts_nested_attributes_for :combatants
 
-  validates_presence_of :name
+  validates :name, presence: true
 
   scope :active, -> { where(active: true) }
 end

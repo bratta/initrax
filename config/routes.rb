@@ -1,14 +1,16 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'home#index'
   get 'initrax', to: 'home#initrax', as: :initrax
   devise_for :users, controllers: {
-    registrations: "users/registrations",
-    sessions: "users/sessions"
+    registrations: 'users/registrations',
+    sessions: 'users/sessions'
   }
   devise_scope :user do
     scope :users, as: :users do
-      post "pre_otp", to: "users/sessions#pre_otp"
+      post 'pre_otp', to: 'users/sessions#pre_otp'
       get '/', to: 'users/registrations#show'
       get '/otp', to: 'users/otp#index', as: 'otp_index'
       put '/otp', to: 'users/otp#update', as: 'otp_update'
@@ -18,12 +20,12 @@ Rails.application.routes.draw do
   end
 
   namespace :api do
-    post "/characters/order", to: "characters#order"
-    post "/combatants/order", to: "combatants#order"
-    get "/combats/names", to: "combats#names"
+    post '/characters/order', to: 'characters#order'
+    post '/combatants/order', to: 'combatants#order'
+    get '/combats/names', to: 'combats#names'
 
-    resources :characters, only: [:index, :show, :create, :update, :destroy], defaults: { format: 'json' }
-    resources :combats, only: [:index, :show, :create, :update, :destroy], defaults: { format: 'json' }
-    resources :combatants, only: [:update, :destroy], defaults: { format: 'json' }
+    resources :characters, only: %i[index show create update destroy], defaults: { format: 'json' }
+    resources :combats, only: %i[index show create update destroy], defaults: { format: 'json' }
+    resources :combatants, only: %i[update destroy], defaults: { format: 'json' }
   end
 end
