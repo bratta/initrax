@@ -26,7 +26,7 @@ jobs:
 
       - run:
         name: Bundle Install
-        command: bin/bundle install --path vendor/bundle
+        command: bundle install --path vendor/bundle
 
       - run:
         name: Yarn Install
@@ -46,7 +46,7 @@ jobs:
 
       - run:
         name: Rubocop
-        command: bin/rubocop
+        command: bundle exec rubocop
 
       - run:
         name: Wait for DB
@@ -54,8 +54,8 @@ jobs:
 
       - run:
         name: Database setup
-        command: bin/rails db:schema:load --trace
+        command: bundle exec rails db:schema:load --trace
 
       - run:
         name: Run Rspec specs
-        command: rspec
+        command: bundle exec rspec
