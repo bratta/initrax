@@ -28,7 +28,7 @@ jobs:
             name: Bundle Install
             command: bin/bundle install --path vendor/bundle
 
-          -run:
+          - run:
             name: Yarn Install
             command: yarn install
 
