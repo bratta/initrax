@@ -3,16 +3,16 @@
    <div class="column-header">
      <h3>Characters</h3>
      <button type="button" class="btn btn-xs btn-primary" @click="showCombatModal=true">+ Combat</button>
-     <combat-modal v-if="showCombatModal" :characters.sync="selectedCharacters" @close="showCombatModal=false" />
+     <combat-modal v-if="showCombatModal" :characters.sync="selectedCharacters" @close="showCombatModal=false"></combat-modal>
     </div>
-    <br />
+    <br>
     <div class="btn-group btn-group-justified">
       <a class="btn btn-primary" @click="selectAll">All</a>
       <a class="btn btn-primary" @click="selectPC">PC</a>
       <a class="btn btn-primary" @click="selectNPC">NPC</a>
       <a class="btn btn-primary" @click="clearSelected">None</a>
     </div>
-    <br />
+    <br>
     <div class="scrollable">
       <ul class="list-unstyled" v-sortable="{ onUpdate: reorderCharacters }">
         <li v-for="character of characters" class="panel panel-default"
@@ -29,7 +29,7 @@
         </li>
       </ul>
       <button type="button" class="btn btn-block btn-success add-btn" @click="addNewCharacter">Add Character</button>
-      <character-modal v-if="showCharacterModal" :user.sync="editCharacter" @close="showCharacterModal=false" @changed-saved="changesSaved" />
+      <character-modal v-if="showCharacterModal" :user.sync="editCharacter" @close="showCharacterModal=false" @changed-saved="changesSaved"></character-modal>
     </div>
   </div>
 </template>
@@ -42,7 +42,6 @@ export default {
   data: function () {
     return {
       characters: [],
-      errors: [],
       showCharacterModal: false,
       showCombatModal: false,
       editCharacter: new Character(null, this.$parent.current_user.id),

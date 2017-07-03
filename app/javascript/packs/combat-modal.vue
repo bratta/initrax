@@ -8,7 +8,7 @@
           Add to:&nbsp;
           <select class="form-control" v-model="selectedCombat" @change="disableNewCombatName">
             <option></option>
-            <option v-for="combat in combatNames" v-bind:value="combat.id">
+            <option v-for="combat in combatNames" v-bind:key="combat.id" v-bind:value="combat.id">
               {{ combat.name }}
             </option>
           </select> &nbsp;or&nbsp;
@@ -30,7 +30,10 @@
               <td>{{combatant.character.name}}</td>
               <td v-if="combatant.character.is_player"><span class="badge">PC</span></td>
               <td v-else="!combatant.character.is_player"><span class="badge">NPC</span></td>
-              <td><input type="number" class="form-control" v-model="initiativeRolls[combatant.character.id]" :disabled="combatant.character.roll_automatically"></td>
+              <td>
+                <input type="number" class="form-control" v-model="initiativeRolls[combatant.character.id]" :disabled="combatant.character.roll_automatically" :data-vv-name="'initiative_roll-'+combatant.character.id" data-vv-as="Initiative Roll" v-validate="'numeric|min_value:1'" :class="{'input': true, 'is-danger': validationErrors.has('initiative_roll-'+combatant.character.id)}">
+                <span v-show="validationErrors.has('initiative_roll-'+combatant.character.id)" class="help is-danger">{{ validationErrors.first('initiative_roll-'+combatant.character.id) }}</span>
+              </td>
               <td><label><input type="checkbox" v-model="combatant.character.roll_automatically" @click="checkAutomaticRoll(combatant)"> Roll Automatically</label></td>
             </tr>
           </tbody>
@@ -55,8 +58,7 @@ export default {
       newCombatName: null,
       combatants: [],
       initiativeRolls: {},
-      combatNames: [],
-      errors: []
+      combatNames: []
     }
   },
 
@@ -108,12 +110,17 @@ export default {
     },
 
     saveCombat: function() {
-      if (this.newCombatName) {
-        this.createCombat();
-      } else if (this.selectedCombat) {
-        this.updateCombat();
+      this.$validator.validateAll();
+      if (this.validationErrors.any()) {
+        this.errorToast("Please fix the validation errors before saving.");
       } else {
-        this.$emit('close');
+        if (this.newCombatName) {
+          this.createCombat();
+        } else if (this.selectedCombat) {
+          this.updateCombat();
+        } else {
+          this.$emit('close');
+        }
       }
     },
 

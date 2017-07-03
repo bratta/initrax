@@ -14,7 +14,8 @@
             <div class="col-md-8">
               <div class="form-group">
                 <label for="name">Character Name</label>
-                <input v-model="user.name" type="text" class="form-control" id="name" placeholder="Some Goofy Name">
+                <input v-model="user.name" type="text" class="form-control" id="name" data-vv-name="name" data-vv-as="Character Name" placeholder="Some Goofy Name" v-validate="'required'" :class="{'input': true, 'is-danger': validationErrors.has('name')}">
+                <span v-show="validationErrors.has('name')" class="help is-danger">{{ validationErrors.first('name') }}</span>
               </div>
             </div>
             <div class="col-md-4">
@@ -28,11 +29,13 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="level">Level/Challenge Rating</label>
-                <input v-model="user.level" type="number" class="form-control" id="level">
+                <input v-model="user.level" type="number" class="form-control" id="level" data-vv-name="level" data-vv-as="Level/CR" v-validate="'required|numeric|min_value:1|max_value:30'" :class="{'input': true, 'is-danger': validationErrors.has('level')}">
+                <span v-show="validationErrors.has('level')" class="help is-danger">{{ validationErrors.first('level') }}</span>
               </div>
               <div class="form-group">
                 <label for="hp">Hit Points</label>
-                <input v-model="user.hit_points" type="number" class="form-control" id="hp">
+                <input v-model="user.hit_points" type="number" class="form-control" id="hp" data-vv-name="hit_points" data-vv-as="Hit Points" v-validate="'required|numeric|min_value:0'" :class="{'input': true, 'is-danger': validationErrors.has('hit_points')}">
+                <span v-show="validationErrors.has('hit_points')" class="help is-danger">{{ validationErrors.first('hit_points') }}</span>
               </div>
               <div class="form-group">
                 <label>
@@ -44,16 +47,18 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="initiative">Initiative Rating</label>
-                <input v-model="user.initiative_bonus" type="number" class="form-control" id="initiative">
+                <input v-model="user.initiative_bonus" type="number" class="form-control" id="initiative" data-vv-name="initiative_bonus" data-vv-as="Initiative Bonus" v-validate="{ rules: { required: true, regex: /^(-)?[0-9]+$/} }" :class="{'input': true, 'is-danger': validationErrors.has('initiative_bonus')}">
+                <span v-show="validationErrors.has('initiative_bonus')" class="help is-danger">{{ validationErrors.first('initiative_bonus') }}</span>
               </div>
               <div class="form-group" v-if="user.id">
                 <input type="hidden" v-model="user.id" />
-                <label for="delete">Delete Character</label><br />
+                <label for="delete">Delete Character</label><br>
                 <button class="btn btn-danger" id="delete" @click="deleteCharacter">Delete Character</button>
               </div>
               <div class="form-group" v-else>
                 <label for="quantity">Quantity</label>
-                <input type="number" class="form-control" id="quantity" v-model="quantity">
+                <input type="number" class="form-control" id="quantity" v-model="quantity" data-vv-name="quantity" data-vv-as="Quantity" v-validate="'required|numeric|min_value:1'" :class="{'input': true, 'is-danger': validationErrors.has('quantity')}">
+                <span v-show="validationErrors.has('quantity')" class="help is-danger">{{ validationErrors.first('quantity') }}</span>
               </div>
             </div>
           </div>
@@ -76,8 +81,7 @@ export default {
 
   data: function () {
     return {
-      quantity: 1,
-      errors: []
+      quantity: 1
     }
   },
 
@@ -87,10 +91,15 @@ export default {
 
   methods: {
     saveChanges: function(quantity) {
-      if (this.user.id) {
-        this.updateCharacter();
+      this.$validator.validateAll();
+      if (this.validationErrors.any()) {
+        this.errorToast("Please fix the validation errors before saving.");
       } else {
-        this.createCharacter(quantity);
+        if (this.user.id) {
+          this.updateCharacter();
+        } else {
+          this.createCharacter(quantity);
+        }
       }
     },
     createCharacter: function(quantity) {

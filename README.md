@@ -3,6 +3,10 @@
 ## <a name="about"></a>Initrax Initiative Tracker
 
 ![CircleCI Status](https://circleci.com/gh/bratta/initrax.png?style=shield&circle-token=525afaaf36cfb4383a64454d374bb249e43f354b)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/vuejs-pt/vue-alert/master/LICENSE)
+[![Vue 2.x](https://img.shields.io/badge/vue-2.x-green.svg)](https://vuejs.org/)
+[![GitHub issues](https://img.shields.io/github/issues/bratta/initrax.svg)](https://github.com/bratta/initrax/issues)
+[![Github All Releases](https://img.shields.io/github/downloads/bratta/initrax/total.svg)](https://github.com/bratta/initrax/releases/latest)
 
 *Initrax* is a simple, web-based iniative tracker for pen-and-paper role-playing games.
 It was written initially to support [Pathfinder](http://paizo.com/pathfinderRPG) but
