@@ -4871,6 +4871,10 @@ vary@~1.1.0, vary@~1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.1.tgz#67535ebb694c1d52257457984665323f587e8d37"
 
+vee-validate@^2.0.0-rc.6:
+  version "2.0.0-rc.6"
+  resolved "https://registry.yarnpkg.com/vee-validate/-/vee-validate-2.0.0-rc.6.tgz#572905b3825bf04459510d7303792867fac30803"
+
 vendors@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/vendors/-/vendors-1.0.1.tgz#37ad73c8ee417fb3d580e785312307d274847f22"
@@ -4890,6 +4894,10 @@ vm-browserify@0.0.4:
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-0.0.4.tgz#5d7ea45bbef9e4a6ff65f95438e0a87c357d5a73"
   dependencies:
     indexof "0.0.1"
+
+vue-easy-toast@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/vue-easy-toast/-/vue-easy-toast-1.0.2.tgz#2b9bc9c8c00f81bbd0b53de02728644566bf9037"
 
 vue-hot-reload-api@^2.1.0:
   version "2.1.0"

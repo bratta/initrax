@@ -39,20 +39,13 @@ export default {
   data: function() {
     return {
       combats: [],
-      damageCounter: {},
-      errors: []
+      damageCounter: {}
     }
-  },
-
-  components: {
   },
 
   created: function() {
     this.eventHub.$on('combat-saved', this.fetchCombats);
     this.fetchCombats();
-  },
-
-  ready: function() {
   },
 
   methods: {
@@ -64,7 +57,7 @@ export default {
           _.each(response.data, function(combat) {
             vm.combats.push(Combat.from_json(combat));
           });
-          _.each(_.flatten(_.map(combats, "combatants"), true), function(combatant) {
+          _.each(_.flatten(_.map(vm.combats, "combatants"), true), function(combatant) {
             vm.damageCounter[combatant.id] = '';
           });
         })

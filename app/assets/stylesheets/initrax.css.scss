@@ -27,6 +27,12 @@ html, body, .initrax-container.container-fluid {
     margin-bottom: 0px;
     padding-bottom: 0px;
 }
+.is-danger {
+  color: red;
+}
+input.is-danger {
+  border: 1px solid red;
+}
 .initrax-container {
   overflow-y: hidden;
   overflow-x: scroll;
