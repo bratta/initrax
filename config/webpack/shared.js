@@ -14,9 +14,11 @@ const { env, settings, output, loadersDir } = require('./configuration.js')
 const extensionGlob = `**/*{${settings.extensions.join(',')}}*`
 const entryPath = join(settings.source_path, settings.source_entry_path)
 const packPaths = sync(join(entryPath, extensionGlob))
+const modelPath = join(settings.source_path, settings.source_model_path)
+const modelPaths = sync(join(modelPath, extensionGlob))
 
 module.exports = {
-  entry: packPaths.reduce(
+  entry: packPaths.concat(modelPaths).reduce(
     (map, entry) => {
       const localMap = map
       const namespace = relative(join(entryPath), dirname(entry))

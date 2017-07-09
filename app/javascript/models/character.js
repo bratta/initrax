@@ -1,4 +1,4 @@
-class Character {
+module.exports = class Character {
   constructor(id, user_id, name, hit_points=0, initiative_bonus=0, roll_automatically=false,
               is_player=true, level=1, active=true, display_order=0) {
 

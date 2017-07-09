@@ -46,4 +46,5 @@ postgres
 .byebug_history
 spec/examples.txt
 ubuntu-xenial-16.04-cloudimg-console.log
+.tmp
 yarn-error.log

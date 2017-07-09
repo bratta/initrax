@@ -1,4 +1,4 @@
-class Combat {
+module.exports = class Combat {
   constructor(id, user_id, name, active=true, combatants=[]) {
     this._id = id;
     this._user_id = user_id;

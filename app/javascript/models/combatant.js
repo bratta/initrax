@@ -1,4 +1,4 @@
-class Combatant {
+module.exports = class Combatant {
   constructor(id, user_id, hit_points=0, notes='', display_order=0, active=true, character=new Character(), calculated_roll=0) {
     this._id = id;
     this._user_id = user_id;

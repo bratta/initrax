@@ -6,6 +6,11 @@ import Sortable from 'vue-sortable'
 import Toast from 'vue-easy-toast'
 import VeeValidate from 'vee-validate'
 
+// Load our models
+_.each(['Character', 'Combat', 'Combatant'], (model) =>
+  window[model] = require(`models/${model.toLowerCase()}.js`)
+);
+
 Vue.use(Sortable);
 Vue.use(Toast);
 

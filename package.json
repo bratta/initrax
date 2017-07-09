@@ -6,6 +6,9 @@
   "repository": "https://github.com/bratta/initrax",
   "author": "Tim Gourley <tgourley@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "test": "NODE_ENV=test yarn run mocha-webpack -- --opts test/mocha.opts"
+  },
   "dependencies": {
     "autoprefixer": "^6.7.7",
     "axios": "^0.16.1",
@@ -51,5 +54,10 @@
     "webpack-manifest-plugin": "^1.1.0",
     "webpack-merge": "^4.1.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "chai": "^4.0.2",
+    "mocha": "^3.4.2",
+    "mocha-webpack": "^0.7.0",
+    "sinon": "^2.3.6"
+  }
 }

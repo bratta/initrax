@@ -3,6 +3,7 @@
 default: &default
   source_path: app/javascript
   source_entry_path: packs
+  source_model_path: models
   public_output_path: packs
 
   extensions:
@@ -32,7 +33,10 @@ development:
 test:
   <<: *default
 
-  public_output_path: packs-test
+  dev_server:
+    host: 0.0.0.0
+    port: 8080
+    https: false
 
 production:
   <<: *default
