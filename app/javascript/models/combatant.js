@@ -1,5 +1,7 @@
+var Character = require("models/character.js");
+
 module.exports = class Combatant {
-  constructor(id, user_id, hit_points=0, notes='', display_order=0, active=true, character=new Character(), calculated_roll=0) {
+  constructor(id, user_id, hit_points=0, notes="", display_order=0, active=true, character=new Character(), calculated_roll=0) {
     this._id = id;
     this._user_id = user_id;
     this._hit_points = hit_points;
@@ -96,4 +98,4 @@ module.exports = class Combatant {
     var character = (json.character != null) ? Character.from_json(json.character) : new Character();
     return new Combatant(json.id, json.user_id, json.hit_points, json.notes, json.display_order, json.active, character, json.calculated_roll);
   }
-}
+};

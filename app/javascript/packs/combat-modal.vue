@@ -49,8 +49,12 @@
 </template>
 
 <script>
+
+var Combat = require("models/combat.js");
+var Combatant = require("models/combatant.js");
+
 export default {
-  props: ['characters'],
+  props: ["characters"],
 
   data: function () {
     return {
@@ -59,7 +63,7 @@ export default {
       combatants: [],
       initiativeRolls: {},
       combatNames: []
-    }
+    };
   },
 
   created: function() {
@@ -70,7 +74,7 @@ export default {
   methods: {
     fetchCombatNames: function() {
       const vm = this;
-      axios.get('/api/combats/names.json')
+      axios.get("/api/combats/names.json")
         .then(function(response) {
           vm.combatNames = response.data;
         })
@@ -87,25 +91,25 @@ export default {
         newCombatant.character = character;
         newCombatant.hit_points = character.hit_points;
         vm.combatants.push(newCombatant);
-        vm.initiativeRolls[newCombatant.character.id] = '';
+        vm.initiativeRolls[newCombatant.character.id] = "";
       });
     },
 
     checkAutomaticRoll: function(combatant) {
       if (combatant.character.roll_automatically) {
-        this.initiativeRolls[combatant.character.id] = '';
+        this.initiativeRolls[combatant.character.id] = "";
       }
     },
 
     disableNewCombatName: function() {
       if (this.selectedCombat) {
-        this.newCombatName = '';
+        this.newCombatName = "";
       }
     },
 
     disableCombatName: function() {
       if (this.newCombatName) {
-        this.selectedCombat = '';
+        this.selectedCombat = "";
       }
     },
 
@@ -119,7 +123,7 @@ export default {
         } else if (this.selectedCombat) {
           this.updateCombat();
         } else {
-          this.$emit('close');
+          this.$emit("close");
         }
       }
     },
@@ -151,17 +155,17 @@ export default {
 
     updateCombat: function() {
       const vm = this;
-      axios.get('/api/combats/'+vm.selectedCombat+'.json')
+      axios.get("/api/combats/"+vm.selectedCombat+".json")
         .then(function(response) {
           var combat = Combat.from_json(response.data);
           _.each(vm.combatants, function(combatant) {
             combat.combatants.push(combatant);
           });
           vm.setInitiativeOrder(combat.combatants);
-          axios.put('/api/combats/'+vm.selectedCombat, combat.to_json())
-            .then(function(response) {
-              vm.eventHub.$emit('combat-saved');
-              vm.$emit('close');
+          axios.put("/api/combats/"+vm.selectedCombat, combat.to_json())
+            .then(function() {
+              vm.eventHub.$emit("combat-saved");
+              vm.$emit("close");
             })
             .catch(function(e) {
               vm.errors.push(e);
@@ -176,10 +180,10 @@ export default {
       const vm = this;
       var combat = new Combat(null, vm.current_user.id, this.newCombatName, true, vm.combatants);
       vm.setInitiativeOrder(combat.combatants);
-      axios.post('/api/combats', combat.to_json())
-        .then(function(response) {
-          vm.eventHub.$emit('combat-saved');
-          vm.$emit('close');
+      axios.post("/api/combats", combat.to_json())
+        .then(function() {
+          vm.eventHub.$emit("combat-saved");
+          vm.$emit("close");
         })
         .catch(function(e) {
           vm.errors.push(e);
@@ -193,7 +197,7 @@ export default {
       return _.orderBy(vm.combatants, ["character.is_player", "character.name"], ["desc", "asc"]);
     }
   }
-}
+};
 </script>
 
 <style scoped>

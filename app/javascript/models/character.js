@@ -1,6 +1,5 @@
 module.exports = class Character {
-  constructor(id, user_id, name, hit_points=0, initiative_bonus=0, roll_automatically=false,
-              is_player=true, level=1, active=true, display_order=0) {
+  constructor(id, user_id, name, hit_points=0, initiative_bonus=0, roll_automatically=false, is_player=true, level=1, active=true, display_order=0) {
 
     this._id = id;
     this._user_id = user_id;
@@ -140,10 +139,10 @@ module.exports = class Character {
         active: this.active,
         display_order: this.display_order
       }
-    }
+    };
 
     if (!this.id) {
-      delete json.character.id
+      delete json.character.id;
     }
 
     return json;
@@ -152,4 +151,4 @@ module.exports = class Character {
   static from_json(json) {
     return new Character(json.id, json.user_id, json.name, json.hit_points, json.initiative_bonus, json.roll_automatically, json.is_player, json.level, json.active, json.display_order);
   }
-}
+};

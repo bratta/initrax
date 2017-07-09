@@ -13,18 +13,18 @@
 export default {
   data: function () {
     return {
-    }
+    };
   },
-  props: ['values', 'selected', 'default'],
+  props: ["values", "selected", "default"],
   ready: function () {
-    this.$emit('update:selected', this.default);
+    this.$emit("update:selected", this.default);
   },
   methods: {
     changeSelectedVal: function(val) {
-      this.$emit('update:selected', val);
+      this.$emit("update:selected", val);
     }
   }
-}
+};
 </script>
 
 <style scoped>

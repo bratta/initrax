@@ -1,3 +1,5 @@
+var Combatant = require("models/combatant.js");
+
 module.exports = class Combat {
   constructor(id, user_id, name, active=true, combatants=[]) {
     this._id = id;
@@ -60,7 +62,7 @@ module.exports = class Combat {
     return json;
   }
 
-	static from_json(json) {
+  static from_json(json) {
     var combatants = [];
     if (json.combatants && json.combatants.length > 0) {
       json.combatants.forEach(function(combatant) {
@@ -68,5 +70,5 @@ module.exports = class Combat {
       });
     }
     return new Combat(json.id, json.user_id, json.name, json.active, combatants);
-	}
-}
+  }
+};

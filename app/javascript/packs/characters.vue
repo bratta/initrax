@@ -35,8 +35,9 @@
 </template>
 
 <script>
-import CharacterModal from './character-modal.vue'
-import CombatModal from './combat-modal.vue'
+import CharacterModal from "./character-modal.vue";
+import CombatModal from "./combat-modal.vue";
+var Character = require("models/character.js");
 
 export default {
   data: function () {
@@ -49,12 +50,12 @@ export default {
       delay: 700,
       clicks: 0,
       timer: null
-    }
+    };
   },
 
-	components: {
-		'character-modal': CharacterModal,
-    'combat-modal': CombatModal
+  components: {
+    "character-modal": CharacterModal,
+    "combat-modal": CombatModal
   },
 
   created: function() {
@@ -78,7 +79,7 @@ export default {
     },
     fetchCharacters: function() {
       const vm = this;
-      axios.get('/api/characters.json')
+      axios.get("/api/characters.json")
         .then(function(response) {
           vm.characters = [];
           _.each(response.data, function(character) {
@@ -102,7 +103,7 @@ export default {
     },
     toggleSelection: function(character) {
       if (_.some(this.selectedCharacters, character)) {
-         _.remove(this.selectedCharacters, character);
+        _.remove(this.selectedCharacters, character);
       } else {
         this.selectedCharacters.push(character);
       }
@@ -114,7 +115,7 @@ export default {
       _.each(vm.characters, function(character, index) {
         character.display_order = index;
       });
-      axios.post('/api/characters/order', {
+      axios.post("/api/characters/order", {
         characters: { order: vm.getCharactersDisplayOrder() }
       })
         .catch(function(e) {
@@ -130,7 +131,7 @@ export default {
 
     isSelected: function(character) {
       if (_.some(this.selectedCharacters ,character)) {
-        return ['selected'];
+        return ["selected"];
       } else {
         return [];
       }
@@ -165,7 +166,7 @@ export default {
       });
     },
   }
-}
+};
 </script>
 
 <style scoped>

@@ -29,8 +29,8 @@
 </template>
 
 <script>
-import Characters from './characters.vue'
-import Combats from './combats.vue'
+import Characters from "./characters.vue";
+import Combats from "./combats.vue";
 
 export default {
   components: {
@@ -40,9 +40,9 @@ export default {
   data: function () {
     return {
       message: "<p><strong>Welcome to Initrax!</strong></p><p>Here you can track your initiative with style! This system is compatible with Pathfinder, DND, or other initiative-based role-playing games. Add your characters (both players and non-playing characters), and use this tool to keep track of turn order for your combat sessions.</p>"
-    }
+    };
   }
-}
+};
 </script>
 
 <style scoped>
