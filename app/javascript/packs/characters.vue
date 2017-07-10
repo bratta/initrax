@@ -21,7 +21,7 @@
           <div class="panel-body">
             <strong>{{character.name}}</strong>
             <span v-if="character.is_player" class="badge">PC</span>
-            <span v-else="!character.is_player" class="badge">NPC</span><br>
+            <span v-else class="badge">NPC</span><br>
             <strong>HP:</strong> {{character.hit_points}}
             <strong>Init:</strong> {{character.initiative_bonus}}
             <strong>Level:</strong> {{character.level}}

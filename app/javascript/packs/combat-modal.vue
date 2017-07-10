@@ -26,10 +26,10 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="combatant in sortedCombatants">
+            <tr v-for="combatant in sortedCombatants" v-bind:key="combatant.character.id">
               <td>{{combatant.character.name}}</td>
               <td v-if="combatant.character.is_player"><span class="badge">PC</span></td>
-              <td v-else="!combatant.character.is_player"><span class="badge">NPC</span></td>
+              <td v-else><span class="badge">NPC</span></td>
               <td>
                 <input type="number" class="form-control" v-model="initiativeRolls[combatant.character.id]" :disabled="combatant.character.roll_automatically" :data-vv-name="'initiative_roll-'+combatant.character.id" data-vv-as="Initiative Roll" v-validate="'numeric|min_value:1'" :class="{'input': true, 'is-danger': validationErrors.has('initiative_roll-'+combatant.character.id)}">
                 <span v-show="validationErrors.has('initiative_roll-'+combatant.character.id)" class="help is-danger">{{ validationErrors.first('initiative_roll-'+combatant.character.id) }}</span>

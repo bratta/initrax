@@ -3,6 +3,7 @@
     <button
       type="button"
       v-for="(key, val) in values"
+      v-bind:key="key"
       @click="changeSelectedVal(key)"
       :class="['btn', { 'btn-info': selected === key, 'btn-default': selected !== key }]"
     >{{ val }}</button>
