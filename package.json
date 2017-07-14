@@ -8,7 +8,7 @@
   "license": "MIT",
   "scripts": {
     "test": "NODE_ENV=test yarn run mocha-webpack -- --opts test/mocha.opts",
-    "lint": "yarn run eslint app/javascript/**/*"
+    "lint": "yarn run eslint app/javascript/**/* test/**/*.test.js"
   },
   "dependencies": {
     "autoprefixer": "^6.7.7",

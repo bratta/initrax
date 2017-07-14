@@ -66,10 +66,9 @@ describe("Character model", function() {
       var character = new Character(1, 1, "Testy McTestFace", 42, 13, true, false, 12, true, 1);
       var character_json = character.to_json();
       expect(character_json).to.exist;
-      expect(character_json).to.include.all.keys('character');
-      expect(character_json.character).to.include.all.keys('id', 'user_id', 'name', 'hit_points',
-                                                           'initiative_bonus', 'roll_automatically',
-                                                           'is_player', 'level', 'active', 'display_order');
+      expect(character_json).to.include.all.keys("character");
+      expect(character_json.character).to.include.all.keys("id", "user_id", "name", "hit_points",
+        "initiative_bonus", "roll_automatically", "is_player", "level", "active", "display_order");
       expect(character_json.character.id).to.equal(1);
       expect(character_json.character.user_id).to.equal(1);
       expect(character_json.character.name).to.equal("Testy McTestFace");
@@ -84,10 +83,9 @@ describe("Character model", function() {
 
     it("does not include the id key if no id is set", () => {
       var character = new Character();
-      expect(character.to_json().character).to.not.have.all.keys('id');
-      expect(character.to_json().character).to.include.all.keys('user_id', 'name', 'hit_points',
-                                                                'initiative_bonus', 'roll_automatically',
-                                                                'is_player', 'level', 'active', 'display_order');
+      expect(character.to_json().character).to.not.have.all.keys("id");
+      expect(character.to_json().character).to.include.all.keys("user_id", "name", "hit_points",
+        "initiative_bonus", "roll_automatically", "is_player", "level", "active", "display_order");
     });
 
     it("creates a new Character from json", () => {

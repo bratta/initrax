@@ -14,7 +14,16 @@ module.exports = {
     },
     "globals": {
       "_": true,
-      "axios": true
+      "axios": true,
+      "describe": true,
+      "it": true,
+      "beforeEach": true,
+      "beforeAll": true,
+      "afterEach": true,
+      "afterAll": true,
+      "expect": true,
+      "assert": true,
+      "sinon": true
     },
     "rules": {
         "indent": [

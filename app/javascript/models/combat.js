@@ -33,6 +33,14 @@ module.exports = class Combat {
     this._name = name;
   }
 
+  get active() {
+    return this._active;
+  }
+
+  set active(active) {
+    this._active = active;
+  }
+
   get combatants() {
     return this._combatants;
   }
