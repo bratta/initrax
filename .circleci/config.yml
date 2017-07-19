@@ -49,6 +49,10 @@ jobs:
           command: bundle exec rubocop
 
       - run:
+          name: ESLint
+          command: npm run lint
+
+      - run:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
 
@@ -59,6 +63,10 @@ jobs:
       - run:
           name: Run Rspec specs
           command: bundle exec rspec
+
+      - run:
+          name: Run Javascript specs
+          command: npm test
 
       - deploy:
           command: |
