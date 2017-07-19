@@ -70,6 +70,7 @@ describe("Combat model", () => {
       expect(combat.active).to.be.true;
       expect(combat.combatants.length).to.equal(1);
       expect(combat.combatants[0].id).to.equal(1);
+      combatantMock.restore();
     });
   });
 });
