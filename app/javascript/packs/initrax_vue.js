@@ -1,18 +1,23 @@
 /* eslint no-console: 0 */
 
-import Vue from 'vue/dist/vue.esm'
-import App from './app.vue'
-import Sortable from 'vue-sortable'
-import Toast from 'vue-easy-toast'
-import VeeValidate from 'vee-validate'
+import Vue from "vue/dist/vue.esm";
+import App from "./app.vue";
+import Sortable from "vue-sortable";
+import Toast from "vue-easy-toast";
+import VeeValidate from "vee-validate";
+
+// Load our models
+_.each(["Character", "Combat", "Combatant"], (model) =>
+  window[model] = require(`models/${model.toLowerCase()}.js`)
+);
 
 Vue.use(Sortable);
 Vue.use(Toast);
 
 const eventHub = new Vue();
 const veeValidateConfig = {
-  errorBagName: 'validationErrors',
-  fieldsBagName: 'validationFields',
+  errorBagName: "validationErrors",
+  fieldsBagName: "validationFields",
 };
 Vue.use(VeeValidate, veeValidateConfig);
 
@@ -22,7 +27,7 @@ Vue.mixin({
       eventHub: eventHub,
       current_user: window.current_user || { id: 0, username: "Guest", email: "" },
       errors: []
-    }
+    };
   },
   methods: {
     errorToast: function(message, exceptionObject) {
@@ -30,10 +35,10 @@ Vue.mixin({
         console.error("Received exception from application:", exceptionObject);
       }
       this.$toast(message, {
-        className: 'et-alert',
-        horizontalPosition: 'center',
-        verticalPosition: 'top',
-        transition: 'slide-left'
+        className: "et-alert",
+        horizontalPosition: "center",
+        verticalPosition: "top",
+        transition: "slide-left"
       });
     },
     handleError: function(error) {
@@ -44,7 +49,7 @@ Vue.mixin({
           message += ` ${error.response.status} ${error.response.statusText}`;
         }
         if (error.message) {
-          message += ` ${error.message}`
+          message += ` ${error.message}`;
         }
         message += ")";
       }
@@ -65,16 +70,16 @@ Vue.mixin({
 });
 
 var initializeInitrax = function() {
-  document.body.appendChild(document.createElement('initrax'))
-  const app = new Vue({
-    el: 'initrax',
-    template: '<app/>',
+  document.body.appendChild(document.createElement("initrax"));
+  new Vue({
+    el: "initrax",
+    template: "<app/>",
     components: {
-      'app': App
+      "app": App
     }
-  })
+  });
 };
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   initializeInitrax();
 });

@@ -74,19 +74,19 @@
 </template>
 
 <script>
-import Radio from './radio.vue'
+import Radio from "./radio.vue";
 
 export default {
-  props: ['user'],
+  props: ["user"],
 
   data: function () {
     return {
       quantity: 1
-    }
+    };
   },
 
   components: {
-    'radio': Radio
+    "radio": Radio
   },
 
   methods: {
@@ -108,12 +108,12 @@ export default {
       quantity = (quantity < 1) ? 1 : quantity;
       var characters = [];
       _.times(quantity, function() {
-        characters.push(axios.post('/api/characters', vm.user.to_json()));
+        characters.push(axios.post("/api/characters", vm.user.to_json()));
       });
       axios.all(characters)
         .then(function() {
-          vm.$emit('changed-saved');
-          vm.$emit('close');
+          vm.$emit("changed-saved");
+          vm.$emit("close");
         })
         .catch(function(e) {
           vm.errors.push(e);
@@ -121,10 +121,10 @@ export default {
     },
     updateCharacter: function() {
       const vm = this;
-      axios.put('/api/characters/'+vm.user.id, vm.user.to_json())
+      axios.put("/api/characters/"+vm.user.id, vm.user.to_json())
         .then(function() {
-          vm.$emit('changed-saved');
-          vm.$emit('close');
+          vm.$emit("changed-saved");
+          vm.$emit("close");
         })
         .catch(function(e) {
           vm.errors.push(e);
@@ -132,17 +132,17 @@ export default {
     },
     deleteCharacter: function() {
       const vm = this;
-      axios.delete('/api/characters/'+vm.user.id)
+      axios.delete("/api/characters/"+vm.user.id)
         .then(function() {
-          vm.$emit('changes-saved');
-          vm.$emit('close');
+          vm.$emit("changes-saved");
+          vm.$emit("close");
         })
         .catch(function(e) {
           vm.errors.push(e);
         });
     }
   }
-}
+};
 </script>
 
 <style scoped>

@@ -6,6 +6,10 @@
   "repository": "https://github.com/bratta/initrax",
   "author": "Tim Gourley <tgourley@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "test": "NODE_ENV=test yarn run mocha-webpack -- --opts test/mocha.opts",
+    "lint": "yarn run eslint app/javascript/**/* test/**/*.test.js"
+  },
   "dependencies": {
     "autoprefixer": "^6.7.7",
     "axios": "^0.16.1",
@@ -22,6 +26,7 @@
     "coffee-script": "^1.12.6",
     "compression-webpack-plugin": "^0.4.0",
     "css-loader": "^0.28.4",
+    "eslint-plugin-vue": "beta",
     "extract-text-webpack-plugin": "^2.1.2",
     "file-loader": "^0.11.2",
     "glob": "^7.1.2",
@@ -51,5 +56,11 @@
     "webpack-manifest-plugin": "^1.1.0",
     "webpack-merge": "^4.1.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "chai": "^4.0.2",
+    "eslint": "^4.2.0",
+    "mocha": "^3.4.2",
+    "mocha-webpack": "^0.7.0",
+    "sinon": "^2.3.6"
+  }
 }
